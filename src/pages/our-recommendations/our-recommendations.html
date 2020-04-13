@@ -1,0 +1,131 @@
+<!--
+  Generated template for the OurRecommendationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content>
+  <section class="intro-pages">
+    <div class="intro-box">
+      <h1>توصياتنا</h1>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <ion-title *ngIf="package != 11">نوع التوصية</ion-title>
+      <ion-list *ngIf="package != 11" radio-group [(ngModel)]="rec_type" (ngModelChange)="ourRecommendations()">
+        <ion-item>
+          <ion-label>مضاربية</ion-label>
+          <ion-radio *ngIf="package == '11'" value="0" checked></ion-radio>
+          <ion-radio *ngIf="package != '11'" value="0"></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="package != '11' && package != '7'">
+          <ion-label>قصيرة المدى</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item *ngIf="package != '11' && package != '7'">
+          <ion-label>استثمارية</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-list *ngIf="package != 11" class="choose-sector">
+        <ion-item>
+          <ion-label>القطاع</ion-label>
+          <ion-select [(ngModel)]="sector_id" [selectOptions]="selectOptions" (ngModelChange)="ourRecommendations()" okText="موافق" cancelText="الغاء">
+            <ion-option value="">كل القطاعات</ion-option>
+            <ion-option *ngFor="let sector of sectors;" value="{{sector.id}}">{{ sector.name }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>درجة الشرعية</ion-label>
+          <ion-select [(ngModel)]="stock_type_id" [selectOptions]="selectOptions" (ngModelChange)="ourRecommendations()" okText="موافق" cancelText="الغاء">
+            <ion-option value="">كل درجات الشرعية</ion-option>
+            <ion-option value="0">شرعى قائمة الفوزان</ion-option>
+            <ion-option value="1">شرعى قائمة الراجحى</ion-option>
+            <ion-option value="2">شرعى قائمة البلاد</ion-option>
+            <ion-option value="3">غير شرعى</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <section class="blocks">
+        <div *ngFor="let recommend of recentOurRecommendations; let i = index;" class="block">
+          <ul>
+            <div id="results">
+              <div class="col-rec">
+                <div class="rec_box">
+                  <header class="equal_rec">
+                    <h5 *ngIf="recommend.status == 0">جديد <i class="fa fa-minus" aria-hidden="true"></i></h5>
+                    <h5 *ngIf="recommend.status == 1">رابح <i class="fa fa-minus" aria-hidden="true"></i></h5>
+                    <h5 *ngIf="recommend.status == 2">وقف خسائر <i class="fa fa-minus" aria-hidden="true"></i></h5>
+                    <h5 *ngIf="recommend.status == 3">البيع بقرب سعر الشراء <i class="fa fa-minus" aria-hidden="true"></i></h5>
+                    <h5 *ngIf="recommend.status == 4">معدله <i class="fa fa-minus" aria-hidden="true"></i></h5>
+                  </header>
+
+                  <ul class="box_body">
+                    <li>
+                      <img src="assets/images/business.svg">
+                      <strong>السهم:</strong>
+                      <span>{{ recommend.recommendation_name }}</span></li>
+                    <li>
+                      <img src="assets/images/world.svg">
+                      <strong> السوق : </strong>
+                      <span>{{ recommend.country }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/maintenance.svg">
+                      <strong> درجة الشرعية : </strong>
+                      <span *ngIf="recommend.stock_type_id == '0'">شرعى قائمة الفوزان</span>
+                      <span *ngIf="recommend.stock_type_id == '1'">شرعى قائمة الراجحى</span>
+                      <span *ngIf="recommend.stock_type_id == '2'">شرعى قائمة البلاد</span>
+                      <span *ngIf="recommend.stock_type_id == '3'">غير شرعى</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/analytics.svg">
+                      <strong> القطاع : </strong>
+                      <span>{{ recommend.sector }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/payment.svg">
+                      <strong>سعر الشراء:</strong>
+                      <span>{{ recommend.buyPrice }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/report.svg">
+                      <strong>سعر البيع :</strong>
+                      <span>{{ recommend.sellPrice }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/legal.svg">
+                      <strong>سعر وقف الخسارة :</strong>
+                      <span>{{ recommend.stopLoss }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/calendar.svg">
+                      <strong>تاريخ الإنشاء :</strong>
+                      <span>{{ recommend.created2_at }}</span>
+                    </li>
+                    <li>
+                      <img src="assets/images/time.svg">
+                      <strong> تاريخ اّخر تعديل : </strong>
+                      <span>{{ recommend.updated2_at }}</span>
+                    </li>
+                    <li>
+                      <!-- <strong> معلومات عن التوصية</strong> -->
+                      <span>{{ recommend.description }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+</ion-content>

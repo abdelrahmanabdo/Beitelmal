@@ -1,0 +1,62 @@
+<ion-menu side="right" [content]="content">
+  <ion-header>
+    <ion-toolbar>
+
+      <!-- <ion-title *ngIf="timer != 0" style="text-align:center">باقي {{ timer }} يوم علي تجديد الباقة</ion-title> -->
+      <ion-title *ngIf="timer == 0" style="text-align:center">بيت المال</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+      <div class="" style="min-height:17px;background-size: cover;">
+        </div>
+        <div class="menu_items">
+            <div class="container">
+               <ion-list class="m-b-0">
+                 <div *ngFor="let p of pages">
+                   <button menuClose ion-item  class="menu_items" *ngIf="p.login == false || (getLoggedIn() == '1' && p.login == true) && (getPackage() != '10')"  (click)="openPage(p)">
+                    <span>{{ p.title }}</span>
+                 </button>
+                </div>
+              </ion-list>
+
+              <ion-list style="width: 100%;">
+                <ion-item text-wrap (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}">
+                  <ion-row>
+                    <ion-col col-11>عن بيت المال</ion-col>
+                    <!-- <ion-col col-1 *ngIf="sublevel"></ion-col> -->
+                  </ion-row>
+                  <ion-row *ngIf="isGroupShown(i)">
+                    <ion-list>
+                      <div *ngFor="let p of subPages">
+                        <button menuClose ion-item class="menu_items"  (click)="openPage(p)">
+                          <span>{{p.title}}</span>
+                        </button>
+                      </div>
+                    </ion-list>
+                  </ion-row>
+                </ion-item>
+                <div class="logout-btn">
+                  <button menuClose ion-item  class="menu_items" *ngIf="getLoggedIn() == '1'" (click)="logout()">
+                   <span>تسجيل الخروج</span>
+                </button>
+               </div>
+              </ion-list>
+              <img style="width: 120px; margin : 0px 10px;" (click)="openBrowser()" src="assets/images/pay-btn.png" />
+            </div>
+          </div>
+  </ion-content>
+</ion-menu>
+
+<header class="header">
+  <a (click)="openMenu()" class="primary-nav-trigger">
+      <span class="menu-icon"></span>
+    </a>
+  <div class="logo"><a><img src="assets/images/logo.png" alt="Logo"></a></div>
+  <div class="remaining">
+    <span class="sand-watch" *ngIf="timer != 0"> <time>{{ timer }}</time> <img src="assets/images/sand-watch.svg" /></span>
+    <!-- <ion-title *ngIf="timer == 0" style="text-align:center"></ion-title> -->
+  </div>
+</header>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

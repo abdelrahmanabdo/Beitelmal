@@ -1,0 +1,24 @@
+<!--
+  Generated template for the PolicyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content>
+
+  <section class="intro-pages">
+		<div class="intro-box">
+			<h1>الشروط والأحكام</h1>
+		</div>
+	</section>
+
+	<main class="main-content">
+		<div class="container">
+      <div *ngFor="let term of terms;">
+        <div [innerHTML]="term.description"></div>
+      </div>
+		</div>
+	</main>
+
+</ion-content>
